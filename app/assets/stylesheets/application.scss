@@ -1,0 +1,110 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ @import "bootstrap";
+
+.center-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.custom-logo {
+    width: 200px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+.btn {
+    margin: 5px;
+}
+
+.d-block.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-primary {
+    background-color: #333333;
+    border-color: #2a2a2a;
+
+    &:hover, &:focus {
+        background-color: #2a2a2a;
+        border-color: #1f1f1f;
+    }
+}
+
+.devise-links a {
+    color: #333333;
+}
+
+.custom-logo-top-left {
+    position: absolute;
+    top: 28px; // Adjust as needed to position from the top
+    left: 28px; // Adjust as needed to position from the left
+    width: 160px; // Adjust width as desired
+    height: auto; // Keep this for aspect ratio
+}
+
+.sign-out-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.top-section {
+    clear: both;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.divider {
+    height: 3px;
+    background-color: black;
+    width: 99vw;
+    position: relative;
+    left: 0;
+    right: 0;
+    margin-top: 100px;
+}
+
+.header-section {
+    text-align: left;
+    padding: 10px;
+}
+  
+.content-section {
+    text-align: left;
+    padding: 0px;
+    margin: 1vw;
+    width: 100%;
+}
+
+.container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+
