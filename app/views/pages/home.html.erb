@@ -5,10 +5,6 @@
             <hr class="divider">
             <div class="content-section">
                 <p>Hello <%= current_user.email %>!</p>
-                <p>You are a [<%= current_user.role %>]</p>
-                <% if current_user.admin? %>
-                    <p>There are <%= User.count %> users in the system.</p>
-                <% end %>
                 <p>
                     Welcome to TickIt Marketplace
                 </p>
