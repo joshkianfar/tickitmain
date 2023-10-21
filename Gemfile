@@ -30,6 +30,8 @@ gem 'sassc-rails', '~> 2.1', '>= 2.1.2'
 
 gem 'bootstrap', '~> 5.3', '>= 5.3.1'
 
+gem 'tailwindcss-rails', '~> 2.0', '>= 2.0.31'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
