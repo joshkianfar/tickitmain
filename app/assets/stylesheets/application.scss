@@ -80,8 +80,8 @@ p {
 }
 
 .divider {
-    height: 3px;
-    background-color: black;
+    height: 1px;
+    color: white;
     width: 99vw;
     position: relative;
     left: 0;
@@ -97,7 +97,7 @@ p {
 .content-section {
     text-align: left;
     padding: 0px;
-    margin: 1vw;
+    margin-left: 28px;
     width: 100%;
 }
 
@@ -107,4 +107,14 @@ p {
     width: 100%;
 }
 
+.centered-form-container {
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 auto;   /* horizontally center the container */
+    padding: 20px;    /* give some space around the form */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 

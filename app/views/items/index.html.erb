@@ -1,14 +1,40 @@
-<p style="color: green"><%= notice %></p>
+<div class="container">
+    <% if current_user %>
+        <div class="header-section">
+            <%= image_tag 'TickItLogoEmpty.png', alt: 'Logo', class: 'custom-logo-top-left' %>
+            <hr class="divider">
+        </div>
+        <div class="content-section">
+            <div class="flex flex-wrap items-start justify-start">
+              <% @items.each do |item| %>
+                <div class="relative w-full p-6 border-2 border-blue-700 rounded-lg lg:w-1/4 lg:mr-8">
+                  <h3 class="mb-2 text-2xl font-bold"><%= item.description %></h3>
+                  <div class="my-1"><%= truncate(strip_tags(item.description.to_s), length: 140) %></div>
+                  <p>Sell goal: <%= item.sell_goal %></p>
+                  <p class="text-sm italic opacity-75">Created by: <%= item.user.name %> </p>
+                  <%= link_to "View item", item, class: "btn btn-default inline-block text-center my-2" %>
+                  <% if author_of(item) %>
+                  <div class="absolute top-0 right-0 mt-2 mr-2">
+                    <%= link_to edit_item_path(item) do %>
+                      <svg class="w-6 h-6 text-white opacity-75 fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>edit</title><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>
+                    <% end %>
+                  </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+        </div>
+        <div class="sign-out-container">
+            <%= link_to "Sell an Item", new_item_path, class: "btn btn-primary" %>
+            <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete, class: "btn btn-danger" %>
+        </div>
+    <% else %>
+        <div class="center-container">
+            <%= image_tag 'TickItLogoEmpty.png', alt: 'Logo', class: 'custom-logo' %>
+            <p>You are not signed in</p>
+            <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %> <br>
+            <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-secondary" %>
+        </div>
+    <% end %>
 
-<h1>Items</h1>
-
-<div id="items">
-  <% @items.each do |item| %>
-    <%= render item %>
-    <p>
-      <%= link_to "Show this item", item %>
-    </p>
-  <% end %>
 </div>
-
-<%= link_to "New item", new_item_path %>
