@@ -11,8 +11,6 @@
                   <h3 class="mb-2 text-2xl font-bold"><%= item.description %></h3>
                   <div class="my-1"><%= truncate(strip_tags(item.description.to_s), length: 140) %></div>
                   <p>Sell goal: <%= item.sell_goal %></p>
-                  <p class="text-sm italic opacity-75">Created by: <%= item.user.name %> </p>
-                  <%= link_to "View item", item, class: "btn btn-default inline-block text-center my-2" %>
                   <% if author_of(item) %>
                   <div class="absolute top-0 right-0 mt-2 mr-2">
                     <%= link_to edit_item_path(item) do %>

@@ -26,11 +26,12 @@
       </div>
 
       <div class="field mb-3">
-        <%= form.label :user_id %><br />
-        <%= form.text_field :user_id, class: 'form-control' %> <br />
+        <%= form.label :more_info %><br />
+        <%= form.text_field :more_info, class: 'form-control' %> <br />
 
       <div class="actions">
         <%= form.submit "Post Item", data: {turbo: false}, class: 'btn btn-primary' %>
+        <%= link_to "Back to items", items_path, class: 'btn btn-danger' %>
       </div>
     <% end %>
 
