@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   has_rich_text :more_info
   has_many :tickets
   validates :description, presence: true
+  has_one_attached :image
 
   validates :max_tickets, presence: true, numericality: { greater_than: 0 }
   before_validation :set_max_tickets, on: :create

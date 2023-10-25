@@ -1,0 +1,3 @@
+<h1>Hi <%= @item.user.name ||= @item.user.username %>,</h1>
+
+<p>We wanted to inform you that the item <strong><%= @item.description %></strong> has met its expiration and is no longer active.</p>

@@ -23,13 +23,21 @@ class TicketsController < ApplicationController
         end
 
         #Logic to handle the purchase of a ticket
-        @ticket = @item.tickets.build(user: current_user)
-        if @ticket.save
-            flash[:notice] = "Ticket purchased successfully"
-            redirect_to items_path and return
+        if current_user.can_afford_ticket?
+            @ticket = @item.tickets.build(user: current_user)
+
+            if @ticket.save
+                current_user.update(wallet_balance: current_user.wallet_balance - 0.50)
+                flash[:notice] = "Ticket purchased successfully"
+                redirect_to items_path and return
+            else
+                flash[:alert] = @ticket.errors.full_messages.join(", ")
+                redirect_to items_path and return
+            end
+
         else
-            flash[:alert] = @ticket.errors.full_messages.join(", ")
-            redirect_to items_path and return
+            flash[:notice] = "You have insufficient funds to purchase this ticket"
+                redirect_to items_path and return
         end
     end
 end
