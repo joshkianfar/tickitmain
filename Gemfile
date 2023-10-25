@@ -77,3 +77,5 @@ end
 gem "devise", "~> 4.9"
 
 gem "sidekiq", "~> 7.1"
+
+gem 'rails-ujs'

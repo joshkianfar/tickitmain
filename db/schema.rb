@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_24_091043) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_24_184446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_24_091043) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "max_tickets"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -88,6 +89,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_24_091043) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "items", "users"
-  add_foreign_key "tickets", "items"
-  add_foreign_key "tickets", "users"
+  add_foreign_key "tickets", "items", on_delete: :cascade
 end

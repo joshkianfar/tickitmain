@@ -25,7 +25,7 @@
 }
 
 .custom-logo {
-    width: 200px;
+    width: 180px;
     margin-bottom: 20px;
     display: block;
 }
@@ -61,7 +61,7 @@ p {
     position: absolute;
     top: 28px; // Adjust as needed to position from the top
     left: 28px; // Adjust as needed to position from the left
-    width: 160px; // Adjust width as desired
+    width: 150px; // Adjust width as desired
     height: auto; // Keep this for aspect ratio
 }
 
@@ -117,4 +117,12 @@ p {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.centered-title {
+    text-align: center;
+    margin-top: 20px;  /* Adjust as desired */
+    margin-bottom: 20px;  /* Adjust as desired */
+    /* Any other styling you want for the title */
+}
+
 

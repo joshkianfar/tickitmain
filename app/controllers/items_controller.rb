@@ -27,8 +27,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to item_url(@item), notice: "Item was successfully created." }
-        format.json { render :show, status: :created, location: @item }
+        format.html { redirect_to items_path, notice: "Item was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @item.errors, status: :unprocessable_entity }
@@ -51,7 +50,7 @@ class ItemsController < ApplicationController
 
   # DELETE /items/1 or /items/1.json
   def destroy
-    @item.destroy!
+    @item.destroy
 
     respond_to do |format|
       format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
@@ -62,7 +61,10 @@ class ItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
-      @item = Item.find(params[:id])
+      @item = Item.find_by(id: params[:id])
+      unless @item
+        redirect_to items_path, alert: "Item not found"
+      end
     end
 
     # Only allow a list of trusted parameters through.
