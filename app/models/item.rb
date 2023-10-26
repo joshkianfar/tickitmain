@@ -7,6 +7,7 @@ class Item < ApplicationRecord
 
   validates :max_tickets, presence: true, numericality: { greater_than: 0 }
   before_validation :set_max_tickets, on: :create
+  validates_presence_of :description, :sell_goal
 
 private
 
