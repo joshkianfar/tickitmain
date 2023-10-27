@@ -17,7 +17,9 @@
               <% @items.each do |item| %>
                 <div class="col-md-3">
                   <div class="card" style="width: 18rem; margin-left: 45px; margin-bottom: 45px;">
-                    <img class="card-img-top"><%= image_tag(item.image) %></img>
+                    <% if item && item.image.present? %>
+                      <img class="card-img-top"><%= image_tag(item.image) %></img>
+                    <% end %>
                     <div class='card-body'>
                       <h5 class="card-title"><%= item.description %></h5>
                       <% remaining_tickets = (item&.max_tickets || 0) - (item&.tickets&.count || 0) %>
@@ -33,7 +35,7 @@
                       <% else %>
                         <div class="absolute top-0 right-0 mt-2 mr-2">
                           <%= form_with url: item_tickets_path(item_id: item.id), method: :post do %>
-                            <%= submit_tag "Buy Ticket" %>
+                            <%= submit_tag "Buy Ticket", class: 'btn btn-primary' %>
                           <% end %>
                         </div>
                       <% end %>
