@@ -1,9 +1,9 @@
 <div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
   <div class="text-center">
     <div class="center-container">
-      <%= form_with(model:@item, html: { class: 'text-center' }) do |form| %>
 
         <%= render "remote_modal", title: "Sell an Item" do %>
+          <%= form_with(model:@item, html: { class: 'text-center' }) do |form| %>
 
           <div class="field mb-3">
             <%= form.label :description %><br />
