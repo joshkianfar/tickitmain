@@ -2,17 +2,6 @@
   <div class="text-center">
     <div class="center-container">
       <%= form_with(model:@item, html: { class: 'text-center' }) do |form| %>
-        <% if @item.errors.any? %>
-          <div style="color: red">
-            <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
-
-            <ul>
-              <% @item.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
 
         <%= render "remote_modal", title: "Sell an Item" do %>
 
@@ -32,7 +21,7 @@
           </div>
 
           <div class="actions">
-            <%= link_to "Back to items", items_path, class: 'btn btn-danger' %>
+            <%= link_to "Back to items", root_path, class: 'btn btn-danger' %>
             <%= form.submit "Post Item", data: {turbo: false}, class: 'btn btn-primary' %>
           </div>
         <% end %>
