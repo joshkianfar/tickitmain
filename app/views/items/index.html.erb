@@ -4,9 +4,7 @@
           <div class="btn btn-primary" style="display: inline-block; margin-right: 10px;">
             Balance: <%= number_to_currency(current_user.wallet_balance, unit: '£', precision: 2) %>
           </div>
-          <div class="btn btn-primary" style="display: inline-block;">
-            <%= current_user.email %>
-          </div>
+          <%= link_to current_user.email, edit_registration_path(current_user), class: "btn btn-primary", data: { turbo_frame: "remote_modal" } %>
         </div>
         <div class="header-section">
             <%= image_tag 'TickItLogoEmpty.png', alt: 'Logo', class: 'custom-logo-top-left' %>

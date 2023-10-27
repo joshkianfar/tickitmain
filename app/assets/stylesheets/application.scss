@@ -73,6 +73,12 @@ p {
     text-align: center;
 }
 
+.inline-buttons {
+    display: flex;  /* makes child elements appear in a row */
+    align-items: flex-start;
+    gap: 10px;  /* adds a gap between the buttons */
+}
+
 .top-section {
     clear: both;
     text-align: left;
@@ -124,6 +130,8 @@ p {
     margin-bottom: 20px;  /* Adjust as desired */
     /* Any other styling you want for the title */
 }
+
+
 
   
 

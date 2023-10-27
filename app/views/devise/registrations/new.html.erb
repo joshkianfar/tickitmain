@@ -7,46 +7,48 @@
       <div class="row align-items-center">
         <div class="col">
           <div class="field mb-3">
-            <%= f.label :first_name, "First Name", class: "form-label" %>
+            <%= f.label :first_name, "First Name", class: "form-label", style: "font-weight: bold;" %>
             <%= f.text_field :first_name, class: "form-control" %>
           </div>
 
           <div class="field mb-3">
-            <%= f.label :last_name, "Last Name", class: "form-label" %>
-            <%= f.text_field :last_name, class: "form-control" %>
-          </div>
-
-          <div class="field mb-3">
-            <%= f.label :email, class: "form-label" %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-          </div>
-
-          <div class="field mb-3">
-            <%= f.label :username, class: "form-label" %>
-            <%= f.text_field :username, class: "form-control" %>
-          </div>
-        </div>
-        <div class="col">
-          <div class="field mb-3">
-            <%= f.label :password, class: "form-label" %>
+            <%= f.label :password, class: "form-label", style: "font-weight: bold;" %>
             <% if @minimum_password_length %>
-            <em>(<%= @minimum_password_length %> chars min)</em>
+            <em style="font-weight: bold;">(<%= @minimum_password_length %> chars min)</em>
             <% end %>
             <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
           </div>
 
           <div class="field mb-3">
-            <%= f.label :password_confirmation, "Confirm Password", class: "form-label" %>
+            <%= f.label :username, class: "form-label", style: "font-weight: bold;" %>
+            <%= f.text_field :username, class: "form-control" %>
+          </div>
+
+          <div class="field mb-3">
+            <%= f.label :house_name, "House Name/Number", class: "form-label", style: "font-weight: bold;" %>
+            <%= f.text_field :house_name, class: "form-control" %>
+          </div>
+
+        </div>
+        <div class="col">
+
+          <div class="field mb-3">
+            <%= f.label :last_name, "Last Name", class: "form-label", style: "font-weight: bold;" %>
+            <%= f.text_field :last_name, class: "form-control" %>
+          </div>
+
+          <div class="field mb-3">
+            <%= f.label :password_confirmation, "Confirm Password", class: "form-label", style: "font-weight: bold;" %>
             <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
           </div>
 
           <div class="field mb-3">
-            <%= f.label :house_name, "House Name/Number", class: "form-label" %>
-            <%= f.text_field :house_name, class: "form-control" %>
+            <%= f.label :email, class: "form-label", style: "font-weight: bold;" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
           </div>
 
           <div class="field mb-3">
-            <%= f.label :post_code, "Post Code (UK)", class: "form-label" %>
+            <%= f.label :post_code, "Post Code (UK)", class: "form-label", style: "font-weight: bold;" %>
             <%= f.text_field :post_code, class: "form-control" %>
           </div>
         </div>
