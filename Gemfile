@@ -79,3 +79,5 @@ gem "devise", "~> 4.9"
 gem "sidekiq", "~> 7.1"
 
 gem 'rails-ujs'
+
+gem 'byebug', platforms: %i[ mri mingw x64_mingw ]
