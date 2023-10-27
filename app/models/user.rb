@@ -10,6 +10,8 @@ class User < ApplicationRecord
   def can_afford_ticket?
     self.wallet_balance >= 0.50
   end
+
+  validates_presence_of :username, :email, :password, :password_confirmation, :first_name, :last_name, :house_name, :post_code
   
 
   
