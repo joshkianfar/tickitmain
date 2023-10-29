@@ -27,7 +27,8 @@ class TicketsController < ApplicationController
             @ticket = @item.tickets.build(user: current_user)
 
             if @ticket.save
-                current_user.update(wallet_balance: current_user.wallet_balance - 0.50)
+                current_user.wallet_balance -= 0.50
+                current_user.save(validate: false)
                 flash[:notice] = "Ticket purchased successfully"
                 redirect_to items_path and return
             else
