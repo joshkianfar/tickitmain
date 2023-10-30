@@ -1,0 +1,13 @@
+<div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+  <div class="text-center">
+    <div class="center-container">
+
+        <h1>Current Balance: £<%= @user.wallet_balance %></h1>
+
+        <%= button_to "Deposit £10", deposit_wallet_path, method: :post, class: "btn btn-success" %>
+        <%= button_to "Withdraw £10", withdrawal_wallet_path, method: :post, class: "btn btn-danger" %>
+
+        
+    </div>
+  </div>
+</div>

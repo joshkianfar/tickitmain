@@ -5,6 +5,11 @@ Rails.application.routes.draw do
     resources :tickets, only: [:create]
   end
 
+  resource :wallet, only: [:show] do
+    post :deposit
+    post :withdrawal
+  end
+
     authenticate :user, lambda { |u| u.admin? } do
       mount Sidekiq::Web => '/sidekiq'
     end
