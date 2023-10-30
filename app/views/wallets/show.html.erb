@@ -2,10 +2,10 @@
   <div class="text-center">
     <div class="center-container">
 
-        <h1>Current Balance: £<%= @user.wallet_balance %></h1>
+        <h2>Current Balance: <%= number_to_currency(current_user.wallet_balance, unit: '£', precision: 2) %>  </h2>
 
-        <%= button_to "Deposit £10", deposit_wallet_path, method: :post, class: "btn btn-success" %>
-        <%= button_to "Withdraw £10", withdrawal_wallet_path, method: :post, class: "btn btn-danger" %>
+        <%= button_to "Deposit", deposit_wallet_path, method: :post, class: "btn btn-success" %>
+        <%= button_to "Withdraw", withdrawal_wallet_path, method: :post, class: "btn btn-danger" %>
 
         
     </div>
