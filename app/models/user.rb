@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :tickets
   validates :wallet_balance, numericality: { greater_than_or_equal_to: 0 }
+  has_many :transactions, dependent: :destroy
+
 
   def can_afford_ticket?
     self.wallet_balance >= 0.50
