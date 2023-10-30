@@ -32,11 +32,14 @@
             </div>
         </div> <br>
 
+        <div class="d-flex justify-content-center">
+            <div class="inline-buttons">
 
+                <%= button_to "Deposit", deposit_wallet_path, method: :post, class: "btn btn-success" %>
+                <%= button_to "Withdraw", withdrawal_wallet_path, method: :post, class: "btn btn-danger" %>
 
-        <%= button_to "Deposit", deposit_wallet_path, method: :post, class: "btn btn-success" %>
-        <%= button_to "Withdraw", withdrawal_wallet_path, method: :post, class: "btn btn-danger" %>
-
+            </div>
+        </div>
     </div>
 
     <div class="sign-out-container">

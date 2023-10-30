@@ -37,7 +37,6 @@
           <% end %>
 
           <div class="inline-buttons">
-            <%= link_to "Back to Items", :back, class: 'btn btn-primary' %>
             <%= button_to "Delete my account", registration_path(resource_name), class: 'btn btn-danger', data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %>
           </div>
         <% end %>
