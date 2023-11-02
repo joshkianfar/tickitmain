@@ -30,6 +30,13 @@ class TicketsController < ApplicationController
                 current_user.wallet_balance -= 0.50
                 current_user.save(validate: false)
                 flash[:notice] = "Ticket purchased successfully"
+
+                # Check if all tickets are sold now, after this purchase
+                if @item.tickets.count == @item.max_tickets
+                    @item.select_winner
+                    flash[:notice] += " and a winner has been selected for the item!"
+                end
+
                 redirect_to items_path and return
             else
                 flash[:alert] = @ticket.errors.full_messages.join(", ")

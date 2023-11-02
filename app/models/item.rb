@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  belongs_to :winner, class_name: 'User', optional: true
   has_rich_text :more_info
   has_many :tickets
   validates :description, presence: true
@@ -8,6 +9,16 @@ class Item < ApplicationRecord
   validates :max_tickets, presence: true, numericality: { greater_than: 0 }
   before_validation :set_max_tickets, on: :create
   validates :sell_goal, presence: true, numericality: { greater_than: 0 }
+
+  def select_winner
+    winning_ticket = self.tickets.sample
+    self.winner = winning_ticket.user
+    self.save
+  
+    WinnerMailer.notify(self.winner, self).deliver_now
+  
+    self.update(state: 'sold')
+  end
 
 private
 
