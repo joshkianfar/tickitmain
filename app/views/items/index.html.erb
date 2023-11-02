@@ -28,23 +28,27 @@
                   <div class="square-image" style="background-image: url('<%= rails_blob_path(item.image) %>');"></div>
                 <% end %>
                 <div class='card-body'>
-                  <h5 class="card-title"><%= item.description %></h5>
-                  <% remaining_tickets = (item&.max_tickets || 0) - (item&.tickets&.count || 0) %>
-                  <% if author_of(item) %>
-                    <div class="absolute top-0 right-0 mt-2 mr-2">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0"><%= item.description %></h5>
+                    <% remaining_tickets = (item&.max_tickets || 0) - (item&.tickets&.count || 0) %>
+                    <% if author_of(item) %>
                       <%= form_with url: item_path(item), method: :delete, local:true do %>
                         <%= button_tag type: 'submit' do %>
                           <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
                         <% end %>
                       <% end %>
-                    </div>
-                  <% else %>
-                    <div class="absolute top-0 right-0 mt-2 mr-2">
-                      <%= form_with url: item_tickets_path(item_id: item.id), method: :post do %>
-                        <%= submit_tag "Buy Ticket", class: 'btn btn-primary' %>
+                    <% else %>
+                      <% if item.tickets.where(user: current_user).exists?%>
+                        <%= image_tag 'Tick.png', alt: 'Bought', class: 'tick-icon' %>
+                      <% else %>
+                        <%= form_with url: item_tickets_path(item_id: item.id), method: :post, id: "buyForm" do %>
+                          <%= button_tag type: 'submit', class: 'image-button', style: "border: none; background: none; padding: 0;" do %>
+                            <img src="<%= asset_path 'TickHollow.png' %>" alt="Buy" class="tick-icon" id="buyButton">
+                          <% end %>
+                        <% end %>
                       <% end %>
-                    </div>
-                  <% end %>
+                    <% end %>
+                  </div>
                 </div>
                 <div class="progress" style="height: 30px;">
                   <div class="progress-bar bg-black" role="progressbar" style="width: <%= (remaining_tickets.to_f / item.max_tickets.to_f) * 100 %>%; font-size: 17px; font-weight:bold;" aria-valuenow="<%= remaining_tickets %>" aria-valuemin="0" aria-valuemax="<%= item.max_tickets %>"><%= remaining_tickets %></div>
@@ -66,6 +70,18 @@
         <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-secondary" %>
       </div>
     <% end %>
+    <script>
+        document.getElementById("buyButton").addEventListener("click", function(event) {
+            event.preventDefault();  
+            this.src = "<%= asset_path 'Tick.png' %>";
+            this.style.pointerEvents = "none";
+
+            // Submitting the form after a short delay to ensure the image change is noticeable
+            setTimeout(function() {
+                document.getElementById("buyForm").submit();
+            }, 500);
+        });
+    </script>
 </div>
 
 

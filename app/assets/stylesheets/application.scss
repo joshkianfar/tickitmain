@@ -139,6 +139,12 @@ p {
     background-size: cover;   /* cover ensures the image fills the div */
 }
 
+.tick-icon {
+    width: 25px;
+    cursor: pointer; /* This changes the cursor to a hand when hovering over the image, signaling it's clickable */
+}
+
+
 
 
 
