@@ -18,6 +18,18 @@ class Item < ApplicationRecord
     WinnerMailer.notify(self.winner, self).deliver_now
   
     self.update(state: 'sold')
+    winning_ticket.update(result: 'Win')
+    tickets.where.not(id: winning_ticket.id).update_all(result: 'Loss')
+  end
+
+  def distribute_funds
+    company_revenue = self.sell_goal * 0.05
+    user_earning = self.sell_goal * 0.95
+
+    self.user.wallet_balance += user_earning
+    self.user.save(validate: false)
+
+    Revenue.create(amount: company_revenue, item: self)
   end
 
 private

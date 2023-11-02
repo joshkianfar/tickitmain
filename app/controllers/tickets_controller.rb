@@ -1,6 +1,10 @@
 class TicketsController < ApplicationController
     before_action :authenticate_user!
 
+    def entered
+        @tickets = current_user.tickets.includes(:item)
+    end
+
     def create
         @item = Item.find(params[:item_id])
 
@@ -34,6 +38,7 @@ class TicketsController < ApplicationController
                 # Check if all tickets are sold now, after this purchase
                 if @item.tickets.count == @item.max_tickets
                     @item.select_winner
+                    @item.distribute_funds
                     flash[:notice] += " and a winner has been selected for the item!"
                 end
 

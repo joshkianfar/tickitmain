@@ -20,4 +20,11 @@ Rails.application.routes.draw do
 
   get 'info', to: 'pages#info'
 
+  get 'entered_raffles', to: 'tickets#entered', as: 'entered_raffles'
+
+  namespace :admin do
+    get 'dashboard/index'
+    get 'dashboard', to: 'dashboard#index'
+  end
+
 end
