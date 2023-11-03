@@ -3,7 +3,7 @@ class Item < ApplicationRecord
   belongs_to :winner, class_name: 'User', optional: true
   has_rich_text :more_info
   has_many :tickets
-  validates :description, presence: true
+  validates_presence_of :description
   has_one_attached :image
 
   validates :max_tickets, presence: true, numericality: { greater_than: 0 }
