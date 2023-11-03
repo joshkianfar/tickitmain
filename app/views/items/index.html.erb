@@ -5,6 +5,9 @@
 <div class="container-fluid">
     <% if current_user %>
       <div style="position: absolute; top: 25px; right: 25px;">
+        <% if current_user&.admin? %>
+          <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-warning", data: { turbo_frame: "remote_modal" } %>
+        <% end %>
         <%= link_to wallet_path, class: "btn btn-primary", style: "display: inline-block;", data: { turbo_frame: "remote_modal" } do %>
           Balance: <%= number_to_currency(current_user.wallet_balance, unit: '£', precision: 2) %>
         <% end %>

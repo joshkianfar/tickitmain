@@ -1,4 +1,9 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Dashboard#index</h1>
-  <p>Find me in app/views/admin/dashboard/index.html.erb</p>
-</div>
+<%= render "items/remote_modal", title: "Admin Dashboard" do %>
+
+  <p>Active Users: <%= @active_users %></p>
+  <p>Total Active Items: <%= @active_items %></p>
+  <p>Total Sold Items: <%= @sold_items %></p>
+  <p>Total Revenue: <%= number_to_currency(@revenues_total, unit: '£', precision: 2) %></p>
+  <!-- ... display other statistics -->
+
+<% end %>
