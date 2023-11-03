@@ -1,0 +1,25 @@
+<div class="container">
+
+    <%= render "items/remote_modal", title: "Results" do %>
+
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Item Description</th>
+                    <th scope="col">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @tickets.each do |ticket| %>
+                    <tr>
+                        <td><%= ticket.item.description %></td>
+                        <td><%= ticket.result %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+
+    <% end %>
+
+</div>
+

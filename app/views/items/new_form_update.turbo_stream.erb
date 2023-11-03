@@ -1,9 +1,5 @@
-<div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
-  <div class="text-center">
-    <div class="center-container">
-
-        <%= render "remote_modal", title: "Sell an Item" do %>
-          <%= form_with(model: @item) do |form| %>
+<%= turbo_stream.update "remote_modal_body" do %>
+  <%= form_with(model: @item) do |form| %>
 
             <div class="field mb-3">
               <%= form.label :description %>
@@ -43,11 +39,7 @@
 
             <div class="actions">
               <%= link_to "Back to items", root_path, class: 'btn btn-danger' %>
-              <%= form.submit "Post Item", class: 'btn btn-primary', data: (@item.errors.any? ? { turbo_frame: 'remote_modal' } : {}) %>
+              <%= form.submit "Post Item", class: 'btn btn-primary', data: (@item.errors.any? ? {} : { turbo_frame: 'remote_modal' }) %>
             </div>
           <% end %>
-
-        <% end %>
-    </div>
-  </div>
-</div>
+<% end %>

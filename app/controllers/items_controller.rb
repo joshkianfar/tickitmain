@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @items = Item.all
+    @items = Item.where(state: 'active')
   end
 
   # GET /items/1 or /items/1.json
@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @item.errors, status: :unprocessable_entity }
-        format.turbo_stream { render :form_update, status: :unprocessable_entity }
+        format.turbo_stream { render :new_form_update, status: :unprocessable_entity }
       end
     end
   end

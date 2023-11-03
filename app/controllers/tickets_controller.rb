@@ -1,6 +1,10 @@
 class TicketsController < ApplicationController
     before_action :authenticate_user!
 
+    def entered
+        @tickets = current_user.tickets.includes(:item)
+    end
+
     def create
         @item = Item.find(params[:item_id])
 
@@ -27,8 +31,17 @@ class TicketsController < ApplicationController
             @ticket = @item.tickets.build(user: current_user)
 
             if @ticket.save
-                current_user.update(wallet_balance: current_user.wallet_balance - 0.50)
+                current_user.wallet_balance -= 0.50
+                current_user.save(validate: false)
                 flash[:notice] = "Ticket purchased successfully"
+
+                # Check if all tickets are sold now, after this purchase
+                if @item.tickets.count == @item.max_tickets
+                    @item.select_winner
+                    @item.distribute_funds
+                    flash[:notice] += " and a winner has been selected for the item!"
+                end
+
                 redirect_to items_path and return
             else
                 flash[:alert] = @ticket.errors.full_messages.join(", ")

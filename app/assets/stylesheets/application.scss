@@ -60,7 +60,7 @@ p {
 .custom-logo-top-left {
     position: absolute;
     top: 28px; // Adjust as needed to position from the top
-    left: 28px; // Adjust as needed to position from the left
+    left: 35px; // Adjust as needed to position from the left
     width: 150px; // Adjust width as desired
     height: auto; // Keep this for aspect ratio
 }
@@ -71,6 +71,12 @@ p {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+}
+
+.inline-buttons {
+    display: flex;  /* makes child elements appear in a row */
+    align-items: flex-start;
+    gap: 10px;  /* adds a gap between the buttons */
 }
 
 .top-section {
@@ -101,11 +107,6 @@ p {
     width: 100%;
 }
 
-.container {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
 
 .centered-form-container {
     vertical-align: middle;
@@ -124,6 +125,28 @@ p {
     margin-bottom: 20px;  /* Adjust as desired */
     /* Any other styling you want for the title */
 }
+
+.spaced-field {
+    margin-bottom: 10px;
+}
+
+.square-image {
+    width: 100%;     /* takes full width of parent container */
+    height: 0;       /* starts off at 0 height */
+    padding-bottom: 100%;  /* makes height equal to width */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;   /* cover ensures the image fills the div */
+}
+
+.tick-icon {
+    width: 25px;
+    cursor: pointer; /* This changes the cursor to a hand when hovering over the image, signaling it's clickable */
+}
+
+
+
+
 
   
 

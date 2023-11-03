@@ -1,0 +1,9 @@
+<%= render "items/remote_modal", title: "Admin Dashboard" do %>
+
+  <p>Active Users: <%= @active_users %></p>
+  <p>Total Active Items: <%= @active_items %></p>
+  <p>Total Sold Items: <%= @sold_items %></p>
+  <p>Total Revenue: <%= number_to_currency(@revenues_total, unit: '£', precision: 2) %></p>
+  <!-- ... display other statistics -->
+
+<% end %>

@@ -1,13 +1,37 @@
 class Item < ApplicationRecord
   belongs_to :user
+  belongs_to :winner, class_name: 'User', optional: true
   has_rich_text :more_info
   has_many :tickets
-  validates :description, presence: true
+  validates_presence_of :description
   has_one_attached :image
+  validate :image_attached
 
   validates :max_tickets, presence: true, numericality: { greater_than: 0 }
   before_validation :set_max_tickets, on: :create
-  validates_presence_of :description, :sell_goal
+  validates :sell_goal, presence: true, numericality: { greater_than: 0 }
+
+  def select_winner
+    winning_ticket = self.tickets.sample
+    self.winner = winning_ticket.user
+    self.save
+  
+    WinnerMailer.notify(self.winner, self).deliver_now
+  
+    self.update(state: 'sold')
+    winning_ticket.update(result: 'Win')
+    tickets.where.not(id: winning_ticket.id).update_all(result: 'Loss')
+  end
+
+  def distribute_funds
+    company_revenue = self.sell_goal * 0.05
+    user_earning = self.sell_goal * 0.95
+
+    self.user.wallet_balance += user_earning
+    self.user.save(validate: false)
+
+    Revenue.create(amount: company_revenue, item: self)
+  end
 
 private
 
@@ -32,6 +56,10 @@ def set_max_tickets
   else
     self.max_tickets = self.sell_goal * 2
   end
+end
+
+def image_attached
+  errors.add(:image, "Image must be attached") unless image.attached?
 end
 
 

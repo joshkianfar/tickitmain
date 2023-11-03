@@ -1,61 +1,91 @@
-<div class="container">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<div class="container-fluid">
     <% if current_user %>
-        <div style="position: absolute; top: 25px; right: 25px;">
-          <div class="btn btn-primary" style="display: inline-block; margin-right: 10px;">
-            Balance: <%= number_to_currency(current_user.wallet_balance, unit: '£', precision: 2) %>
-          </div>
-          <div class="btn btn-primary" style="display: inline-block;">
-            <%= current_user.email %>
-          </div>
-        </div>
-        <div class="header-section">
-            <%= image_tag 'TickItLogoEmpty.png', alt: 'Logo', class: 'custom-logo-top-left' %>
-            <hr class="divider">
-        </div>
-        <div class="container">
-            <div class="row">
-              <% @items.each do |item| %>
-                <div class="col-md-3">
-                  <div class="card" style="width: 18rem; margin-left: 45px; margin-bottom: 45px;">
-                    <img class="card-img-top"><%= image_tag(item.image) %></img>
-                    <div class='card-body'>
-                      <h5 class="card-title"><%= item.description %></h5>
-                      <% remaining_tickets = (item&.max_tickets || 0) - (item&.tickets&.count || 0) %>
-                      <%= remaining_tickets %> ticket(s) left
-                      <% if author_of(item) %>
-                        <div class="absolute top-0 right-0 mt-2 mr-2">
-                          <%= form_with url: item_path(item), method: :delete, local:true do %>
-                            <%= button_tag type: 'submit' do %>
-                              <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
-                            <% end %>
-                          <% end %>
-                        </div>
-                      <% else %>
-                        <div class="absolute top-0 right-0 mt-2 mr-2">
-                          <%= form_with url: item_tickets_path(item_id: item.id), method: :post do %>
-                            <%= submit_tag "Buy Ticket" %>
-                          <% end %>
-                        </div>
+      <div style="position: absolute; top: 25px; right: 25px;">
+        <% if current_user&.admin? %>
+          <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn btn-warning", data: { turbo_frame: "remote_modal" } %>
+        <% end %>
+        <%= link_to wallet_path, class: "btn btn-primary", style: "display: inline-block;", data: { turbo_frame: "remote_modal" } do %>
+          Balance: <%= number_to_currency(current_user.wallet_balance, unit: '£', precision: 2) %>
+        <% end %>
+        <%= link_to 'Results', entered_raffles_path, class: "btn btn-primary", data: { turbo_frame: "remote_modal" } %>
+        <%= link_to 'Account', edit_registration_path(current_user), class: "btn btn-primary", data: { turbo_frame: "remote_modal" } %>
+        <%= link_to info_path, class: "btn btn-danger", style: "display: inline-block;", data: { turbo_frame: "remote_modal" } do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-question-lg" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14Z"/>
+          </svg>
+        <% end %>
+      </div>
+      <div class="header-section">
+        <%= image_tag 'TickItLogoEmpty.png', alt: 'Logo', class: 'custom-logo-top-left' %>
+        <hr class="divider">
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <% @items.each do |item| %>
+            <div class="col-md-2">
+              <div class="card" style="margin-bottom: 25px;">
+                <% if item && item.image.present? %>
+                  <div class="square-image" style="background-image: url('<%= rails_blob_path(item.image) %>');"></div>
+                <% end %>
+                <div class='card-body'>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0"><%= item.description %></h5>
+                    <% remaining_tickets = (item&.max_tickets || 0) - (item&.tickets&.count || 0) %>
+                    <% if author_of(item) %>
+                      <%= form_with url: item_path(item), method: :delete, local:true do %>
+                        <%= button_tag type: 'submit' do %>
+                          <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                        <% end %>
                       <% end %>
-                    </div>
+                    <% else %>
+                      <% if item.tickets.where(user: current_user).exists?%>
+                        <%= image_tag 'Tick.png', alt: 'Bought', class: 'tick-icon' %>
+                      <% else %>
+                        <%= form_with url: item_tickets_path(item_id: item.id), method: :post, id: "buyForm" do %>
+                          <%= button_tag type: 'submit', class: 'image-button', style: "border: none; background: none; padding: 0;" do %>
+                            <img src="<%= asset_path 'TickHollow.png' %>" alt="Buy" class="tick-icon" id="buyButton">
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    <% end %>
                   </div>
                 </div>
-              <% end %>
+                <div class="progress" style="height: 30px;">
+                  <div class="progress-bar bg-black" role="progressbar" style="width: <%= (remaining_tickets.to_f / item.max_tickets.to_f) * 100 %>%; font-size: 17px; font-weight:bold;" aria-valuenow="<%= remaining_tickets %>" aria-valuemin="0" aria-valuemax="<%= item.max_tickets %>"><%= remaining_tickets %></div>
+                </div>
+              </div>
             </div>
+          <% end %>
         </div>
-        <div class="sign-out-container">
-            <%= link_to "Sell an Item", new_item_path, class: "btn btn-primary", data: { turbo_frame: "remote_modal" } %>
-            <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete, class: "btn btn-danger" %>
-        </div>
+      </div>
+      <div class="sign-out-container">
+        <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete, class: "btn btn-danger" %>
+        <%= link_to "Sell an Item", new_item_path, class: "btn btn-primary", data: { turbo_frame: "remote_modal" } %>
+      </div>
     <% else %>
-        <div class="center-container">
-            <%= image_tag 'TickItLogoEmpty.png', alt: 'Logo', class: 'custom-logo' %>
-            <p>You are not signed in</p>
-            <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %> <br>
-            <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-secondary" %>
-        </div>
+      <div class="center-container">
+        <%= image_tag 'TickItLogoEmpty.png', alt: 'Logo', class: 'custom-logo' %>
+        <p>You are not signed in</p>
+        <%= link_to "Login", new_user_session_path, class: "btn btn-primary" %> <br>
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-secondary" %>
+      </div>
     <% end %>
+    <script>
+        document.getElementById("buyButton").addEventListener("click", function(event) {
+            event.preventDefault();  
+            this.src = "<%= asset_path 'Tick.png' %>";
+            this.style.pointerEvents = "none";
 
+            // Submitting the form after a short delay to ensure the image change is noticeable
+            setTimeout(function() {
+                document.getElementById("buyForm").submit();
+            }, 500);
+        });
+    </script>
 </div>
 
 
