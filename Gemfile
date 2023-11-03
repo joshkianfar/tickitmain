@@ -83,3 +83,4 @@ gem 'rails-ujs'
 gem 'byebug', platforms: %i[ mri mingw x64_mingw ]
 
 gem 'bootstrap-icons', '~> 1.0', '>= 1.0.13'
+
