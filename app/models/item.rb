@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   has_many :tickets
   validates_presence_of :description
   has_one_attached :image
+  validate :image_attached
 
   validates :max_tickets, presence: true, numericality: { greater_than: 0 }
   before_validation :set_max_tickets, on: :create
@@ -55,6 +56,10 @@ def set_max_tickets
   else
     self.max_tickets = self.sell_goal * 2
   end
+end
+
+def image_attached
+  errors.add(:image, "Image must be attached") unless image.attached?
 end
 
 

@@ -21,7 +21,7 @@
               <%= form.label :sell_goal, "Sell Goal (£)" %>
               <%= form.number_field :sell_goal, class: 'form-control' %>
               <div style="color: red">
-                <% if @item.errors.include?(:description) %>
+                <% if @item.errors.include?(:sell_goal) %>
                     <% @item.errors.full_messages_for(:sell_goal).each do |error_message| %>
                       <%= error_message %>.
                     <% end %>
@@ -33,7 +33,7 @@
               <%= form.label :image %>
               <%= form.file_field :image, class: 'form-control' %>
               <div style="color: red">
-                <% if @item.errors.include?(:description) %>
+                <% if @item.errors.include?(:image) %>
                     <% @item.errors.full_messages_for(:image).each do |error_message| %>
                       <%= error_message %>.
                     <% end %>
@@ -43,7 +43,7 @@
 
             <div class="actions">
               <%= link_to "Back to items", root_path, class: 'btn btn-danger' %>
-              <%= form.submit "Post Item", class: 'btn btn-primary', data: { turbo_frame: 'remote_modal' } %>
+              <%= form.submit "Post Item", class: 'btn btn-primary', data: (@item.errors.any? ? { turbo_frame: 'remote_modal' } : {}) %>
             </div>
           <% end %>
         <% end %>
