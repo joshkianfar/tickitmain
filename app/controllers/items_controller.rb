@@ -51,6 +51,16 @@ class ItemsController < ApplicationController
 
   # DELETE /items/1 or /items/1.json
   def destroy
+    @item = Item.find(params[:id])
+
+    # Start a transaction to ensure data integrity
+    ActiveRecord::Base.transaction do
+      @item.tickets.each do |ticket|
+        user = ticket.user
+        user.update!(wallet_balance: user.wallet_balance + 0.5)
+      end
+    end
+
     @item.destroy
 
     respond_to do |format|
